@@ -21,5 +21,4 @@ stages:
           deploy:
             steps:
               - download: current
-              - name: Check what is in the folder
-                bash: ls
+              - bash: ls
