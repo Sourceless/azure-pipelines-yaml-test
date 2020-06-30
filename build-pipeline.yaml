@@ -1,0 +1,25 @@
+name: "Test build pipeline"
+
+trigger:
+  branches:
+    include:
+      - tags/refs/v*
+  tags:
+    include:
+      - v*
+
+pr:
+  branches:
+    include: ['*']
+
+jobs:
+  - job: build
+    displayName: Build
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+
+      - publish: .
+        artifact: test-build-pipeline
