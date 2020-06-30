@@ -1,0 +1,25 @@
+trigger: none
+pr: none
+
+resources:
+  pipelines:
+  - pipeline: azure-test
+    source: Sourceless.azure-pipelines-yaml-test
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Fake deploy
+  displayName: Fake deploy
+  jobs:
+    - deployment: DeployService
+      displayName: Deploy Service
+      environment: 'internal-dev'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - download: current
+              - name: Check what is in the folder
+                bash: ls
